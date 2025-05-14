@@ -6,6 +6,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
+const path = require('path');
+
 
 const productRoutes = require('./routes/productRoutes');
 const cartRoutes = require('./routes/cartRoutes');
@@ -30,6 +32,12 @@ app.use(express.json());
 app.use(helmet());
 app.use(cors());
 app.use(rateLimit({ windowMs: 1 * 60 * 1000, max: 100 }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+app.get('/chat', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'chat.html'));
+});
 
 // Routes
 app.use('/api', productRoutes);

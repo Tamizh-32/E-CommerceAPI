@@ -22,7 +22,7 @@ exports.addProduct = async (req, res) => {
             console.log("Req.Body:", req.body);
             addedProducts = await Product.create({ name, description, price, inStock });
         }
-        res.status(200).json({addedProducts });
+        res.status(200).json({addedProducts});
         console.log("Products Added Successfully!");
 
     } catch (error) {

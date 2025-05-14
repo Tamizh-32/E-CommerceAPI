@@ -18,41 +18,42 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: '*',
+    origin: '*',  // Allow all origins (for production, restrict this to your domain)
+    methods: ['GET', 'POST'],
   },
 });
 
-//  MongoDB connection
+// MongoDB connection
 mongoose.connect(process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/ecommerce')
   .then(() => console.log("MongoDB Connected Successfully"))
   .catch((error) => console.log("MongoDB Connection Failed", error));
 
-//  Middlewares
+// Middlewares
 app.use(express.json());
-app.use(helmet());
-app.use(cors());
+app.use(helmet());  // Security headers for enhanced protection
+app.use(cors());  // Enable CORS (adjust as needed)
 app.use(rateLimit({ windowMs: 1 * 60 * 1000, max: 100 }));
 
-//  Static files
+// Static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-//  Route for chat page
+// Route for chat page
 app.get('/chat', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'chat.html'));
 });
 
-//  API routes
+// API routes
 app.use('/api', productRoutes);
 app.use('/api', cartRoutes);
 
-//  Error handling
+// Error handling
 app.use(notFound);
 app.use(errorHandler);
 
-//  Socket.IO setup 
+// Socket.IO setup
 chatSocket(io);
 
-//  Start server on all interfaces (needed for AWS EC2)
+// Start server (ensure HTTPS in production)
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on port ${PORT}`);

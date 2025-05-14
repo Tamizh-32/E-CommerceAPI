@@ -21,7 +21,7 @@ const io = socketIo(server, {
 });
 
 // MongoDB connection
-mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost:27017/ecommerce')
+mongoose.connect(process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/ecommerce')
   .then(() => console.log("MongoDB Connected Successfully"))
   .catch((error) => console.log("MongoDB Connection Failed", error));
 

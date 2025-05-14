@@ -1,37 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Chatbot Test</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chatbot</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    ul { list-style: none; padding: 0; }
+    li { margin: 10px 0; }
+  </style>
 </head>
 <body>
-  <h2>Chatbot</h2>
-  <input id="msg" placeholder="Type a message..." />
-  <button onclick="send()">Send</button>
-  <ul id="chat"></ul>
+  <h2>💬 Chat with our Bot</h2>
+  <ul id="messages"></ul>
+  <form id="form">
+    <input id="input" autocomplete="off" placeholder="Type your message..." />
+    <button>Send</button>
+  </form>
 
-  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
-  <script>
-    const socket = io('http://13.233.104.187:3000/'); 
-    const ul = document.getElementById('chat');
-
-    socket.on('chat reply', (msg) => {
-      const li = document.createElement('li');
-      li.innerText = "BOT:" + msg;
-      ul.appendChild(li);
-    });
-
-    function send() {
-      const input = document.getElementById('msg');
-      const msg = input.value;
-
-      const li = document.createElement('li');
-      li.innerText = "USER: " + msg;
-      ul.appendChild(li);
-
-      socket.emit('chat message', msg);
-      input.value = '';
-    }
-  </script>
+  <!-- ✅ Local Socket.IO script -->
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- ✅ Separate JS file to avoid inline CSP issues -->
+  <script src="/chat.js"></script>
 </body>
 </html>

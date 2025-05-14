@@ -8,7 +8,7 @@ const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 const path = require('path');
 
-
+// Routes and Middleware
 const productRoutes = require('./routes/productRoutes');
 const cartRoutes = require('./routes/cartRoutes');
 const { notFound, errorHandler } = require('./middlewares/errorMiddleware');
@@ -22,38 +22,38 @@ const io = socketIo(server, {
   },
 });
 
-// MongoDB connection
+//  MongoDB connection
 mongoose.connect(process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/ecommerce')
   .then(() => console.log("MongoDB Connected Successfully"))
   .catch((error) => console.log("MongoDB Connection Failed", error));
 
-// Middlewares
+//  Middlewares
 app.use(express.json());
 app.use(helmet());
 app.use(cors());
 app.use(rateLimit({ windowMs: 1 * 60 * 1000, max: 100 }));
+
+//  Static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+//  Route for chat page
 app.get('/chat', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'chat.html'));
 });
 
-// Routes
+//  API routes
 app.use('/api', productRoutes);
 app.use('/api', cartRoutes);
 
-// Error handling
+//  Error handling
 app.use(notFound);
 app.use(errorHandler);
 
-
+//  Socket.IO setup 
 chatSocket(io);
 
-// Start server
-
-
+//  Start server on all interfaces (needed for AWS EC2)
 const PORT = process.env.PORT || 3000;
-server.listen(PORT,'0.0.0.0', () => {
-  console.log(`Server running on port ${PORT}`);
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });

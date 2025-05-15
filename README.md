@@ -58,6 +58,24 @@ POST	/api/cart	    Add to cart
 PUT	    /api/cart/:id	Update cart item
 DELETE	/api/cart/:id	Remove from cart
 
+
+
+
+AWS EC2 Instence
+Public Public IPv4 Address
+--------------------
+
+https://13.233.104.187/
+
+
+get Products List: https://13.233.104.187/api/products
+get Cart List: https://13.233.104.187/api/cart
+Search Product: https://13.233.104.187/api?search=keyword  eg: iphone
+chat bot : https://13.233.104.187/chat
+
+
+
+
 💬 Chatbot Testing
 The chatbot uses Socket.IO, not REST. You can test it using the provided chat.html:
 

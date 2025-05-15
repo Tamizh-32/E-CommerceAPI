@@ -44,18 +44,18 @@ project-root/
 
 🧪 API Endpoints
 🔹 Product API
-Method	Endpoint	Description
-GET	/api/products	Get all products
-POST	/api/products	Add new product
-PUT	/api/products/:id	Update product
-DELETE	/api/products/:id	Delete product
-GET	/api/products/search?q=keyword	Search products
+Method	        Endpoint	                     Description
+GET	            /api/products	                Get all products
+POST	        /api/products	                Add new product
+PUT	            /api/products/:id	            Update product
+DELETE	        /api/products/:id	            Delete product
+GET	            /api?search=keyword	            Search products
 
 🔹 Cart API
-Method	Endpoint	Description
-GET	/api/cart	View cart
-POST	/api/cart	Add to cart
-PUT	/api/cart/:id	Update cart item
+Method	Endpoint	    Description
+GET	    /api/cart	    View cart
+POST	/api/cart	    Add to cart
+PUT	    /api/cart/:id	Update cart item
 DELETE	/api/cart/:id	Remove from cart
 
 💬 Chatbot Testing

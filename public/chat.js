@@ -8,7 +8,7 @@ form.addEventListener('submit', function (e) {
   e.preventDefault();
   if (input.value) {
     const userMsg = document.createElement('li');
-    userMsg.textContent = `🧑 ${input.value}`;
+    userMsg.textContent = `User: ${input.value}`;
     messages.appendChild(userMsg);
 
     socket.emit('chat message', input.value);
@@ -18,6 +18,6 @@ form.addEventListener('submit', function (e) {
 
 socket.on('chat reply', function (msg) {
   const botMsg = document.createElement('li');
-  botMsg.textContent = `🤖 ${msg}`;
+  botMsg.textContent = `Bot: ${msg}`;
   messages.appendChild(botMsg);
 });
